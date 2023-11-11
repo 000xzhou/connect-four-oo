@@ -6,6 +6,19 @@
 <body>
 
 <div id="game">
+  <label for="p1">P1 color:</label>
+  <input type="color" name="p1" id="p1" value="#ff0000">
+  <label for="p2">P2 color:</label>
+  <input type="color" name="p2" id="p2" value="#0000ff">
+
+  <div>Game Board Size: <span>(min: 0, max: 50)</span></div>
+  <label for="height">height:</label>
+  <input type="number" name="height" id="height">
+  <label for="width">width:</label>
+  <input type="number" name="width" id="width">
+
+
+  <button type="button" id="btn">Start Game</button>
   <table id="board"></table>
 </div>
 

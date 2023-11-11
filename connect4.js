@@ -1,9 +1,12 @@
 class Game {
-  constructor(width, height) {
+  constructor(width, height, p1, p2) {
+    this.players = [p1, p2];
     this.width = width;
     this.height = height;
-    this.currPlayer = 1; // active player: 1 or 2
+    this.currPlayer = p1; // active player: 1 or 2
     this.board = []; // array of rows, each row is array of cells  (board[y][x])
+    this.makeBoard();
+    this.makeHtmlBoard();
   }
   makeBoard() {
     for (let y = 0; y < this.height; y++) {
@@ -51,6 +54,8 @@ class Game {
     const piece = document.createElement("div");
     piece.classList.add("piece");
     piece.classList.add(`p${this.currPlayer}`);
+    console.log(this.currPlayer);
+    piece.style.backgroundColor = this.currPlayer;
     piece.style.top = -50 * (y + 2);
 
     const spot = document.getElementById(`${y}-${x}`);
@@ -86,7 +91,8 @@ class Game {
     }
 
     // switch players
-    this.currPlayer = this.currPlayer === 1 ? 2 : 1;
+    this.currPlayer =
+      this.currPlayer === this.players[0] ? this.players[1] : this.players[0];
   }
   checkForWin() {
     const _win = (cells) => {
@@ -140,8 +146,44 @@ class Game {
       }
     }
   }
+  startGame() {
+    // Clear the board
+
+    this.board = [];
+    this.makeBoard();
+    this.makeHtmlBoard();
+
+    // Reset current player to the first player
+    this.currPlayer = this.players[0];
+  }
 }
 
-x = new Game(6, 7);
-x.makeBoard();
-x.makeHtmlBoard();
+const btn = document.querySelector("#btn");
+btn.addEventListener("click", () => {
+  const p1 = document.querySelector("#p1").value;
+  const p2 = document.querySelector("#p2").value;
+  const height = document.querySelector("#height").value;
+  const width = document.querySelector("#width").value;
+
+  const board = document.getElementById("board");
+
+  if (!height || !width) {
+    alert("Please give the board a size");
+    return;
+  }
+  if (height <= 0 || width <= 0) {
+    alert("Min height or width is 1");
+    return;
+  }
+  if (height > 50 || width > 50) {
+    alert("Max size is 50 for height and width");
+    return;
+  }
+  if (p1 === p2) {
+    alert("No twins allow!");
+    return;
+  }
+  board.innerHTML = "";
+  new Game(height, width, p1, p2);
+});
+new Game(7, 6, "red", "blue");

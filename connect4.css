@@ -14,14 +14,14 @@
   height: 80%;
   border-radius: 50%;
 }
-
+/* 
 .piece.p1 {
   background-color: red;
 }
 
 .piece.p2 {
   background-color: blue;
-}
+} */
 
 /* column-top is table row of clickable areas for each column */
 
@@ -31,4 +31,20 @@
 
 #column-top td:hover {
   background-color: gold;
+}
+
+button {
+  background: snow;
+  border-color: snow;
+  padding: 0 1rem;
+}
+* {
+  outline-color: rgb(67, 67, 223);
+}
+input[type="number"] {
+  width: 50px;
+}
+span {
+  color: red;
+  /* size: 12px; */
 }
