@@ -1,3 +1,9 @@
+class Game {
+  constructor(width, height) {
+    this.width = width;
+    this.height = height;
+  }
+}
 /** Connect Four
  *
  * Player 1 and 2 alternate turns. On each turn, a piece is dropped down a
@@ -24,16 +30,16 @@ function makeBoard() {
 /** makeHtmlBoard: make HTML table and row of column tops. */
 
 function makeHtmlBoard() {
-  const board = document.getElementById('board');
+  const board = document.getElementById("board");
 
   // make column tops (clickable area for adding a piece to that column)
-  const top = document.createElement('tr');
-  top.setAttribute('id', 'column-top');
-  top.addEventListener('click', handleClick);
+  const top = document.createElement("tr");
+  top.setAttribute("id", "column-top");
+  top.addEventListener("click", handleClick);
 
   for (let x = 0; x < WIDTH; x++) {
-    const headCell = document.createElement('td');
-    headCell.setAttribute('id', x);
+    const headCell = document.createElement("td");
+    headCell.setAttribute("id", x);
     top.append(headCell);
   }
 
@@ -41,11 +47,11 @@ function makeHtmlBoard() {
 
   // make main part of board
   for (let y = 0; y < HEIGHT; y++) {
-    const row = document.createElement('tr');
+    const row = document.createElement("tr");
 
     for (let x = 0; x < WIDTH; x++) {
-      const cell = document.createElement('td');
-      cell.setAttribute('id', `${y}-${x}`);
+      const cell = document.createElement("td");
+      cell.setAttribute("id", `${y}-${x}`);
       row.append(cell);
     }
 
@@ -67,8 +73,8 @@ function findSpotForCol(x) {
 /** placeInTable: update DOM to place piece into HTML table of board */
 
 function placeInTable(y, x) {
-  const piece = document.createElement('div');
-  piece.classList.add('piece');
+  const piece = document.createElement("div");
+  piece.classList.add("piece");
   piece.classList.add(`p${currPlayer}`);
   piece.style.top = -50 * (y + 2);
 
@@ -97,17 +103,17 @@ function handleClick(evt) {
   // place piece in board and add to HTML table
   board[y][x] = currPlayer;
   placeInTable(y, x);
-  
+
   // check for win
   if (checkForWin()) {
     return endGame(`Player ${currPlayer} won!`);
   }
-  
+
   // check for tie
-  if (board.every(row => row.every(cell => cell))) {
-    return endGame('Tie!');
+  if (board.every((row) => row.every((cell) => cell))) {
+    return endGame("Tie!");
   }
-    
+
   // switch players
   currPlayer = currPlayer === 1 ? 2 : 1;
 }
@@ -134,10 +140,30 @@ function checkForWin() {
     for (let x = 0; x < WIDTH; x++) {
       // get "check list" of 4 cells (starting here) for each of the different
       // ways to win
-      const horiz = [[y, x], [y, x + 1], [y, x + 2], [y, x + 3]];
-      const vert = [[y, x], [y + 1, x], [y + 2, x], [y + 3, x]];
-      const diagDR = [[y, x], [y + 1, x + 1], [y + 2, x + 2], [y + 3, x + 3]];
-      const diagDL = [[y, x], [y + 1, x - 1], [y + 2, x - 2], [y + 3, x - 3]];
+      const horiz = [
+        [y, x],
+        [y, x + 1],
+        [y, x + 2],
+        [y, x + 3],
+      ];
+      const vert = [
+        [y, x],
+        [y + 1, x],
+        [y + 2, x],
+        [y + 3, x],
+      ];
+      const diagDR = [
+        [y, x],
+        [y + 1, x + 1],
+        [y + 2, x + 2],
+        [y + 3, x + 3],
+      ];
+      const diagDL = [
+        [y, x],
+        [y + 1, x - 1],
+        [y + 2, x - 2],
+        [y + 3, x - 3],
+      ];
 
       // find winner (only checking each win-possibility as needed)
       if (_win(horiz) || _win(vert) || _win(diagDR) || _win(diagDL)) {
