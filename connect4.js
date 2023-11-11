@@ -5,8 +5,9 @@ class Game {
     this.height = height;
     this.currPlayer = p1; // active player: 1 or 2
     this.board = []; // array of rows, each row is array of cells  (board[y][x])
-    this.makeBoard();
-    this.makeHtmlBoard();
+    this.startGame();
+    // this.makeBoard();
+    // this.makeHtmlBoard();
   }
   makeBoard() {
     for (let y = 0; y < this.height; y++) {
