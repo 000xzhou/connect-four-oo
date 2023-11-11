@@ -1,10 +1,3 @@
-class Game {
-  constructor(width, height) {
-    this.width = width;
-    this.height = height;
-  }
-}
-
 /** Connect Four
  *
  * Player 1 and 2 alternate turns. On each turn, a piece is dropped down a
